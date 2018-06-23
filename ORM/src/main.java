@@ -2,7 +2,7 @@ import javax.persistence.*;
 
 public class main {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("barPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SE42");
         EntityManager em = emf.createEntityManager();
 
         Product cola = new Product();

@@ -4,12 +4,18 @@ import javax.persistence.*;
 public class Product {
 
     @Id @GeneratedValue // ORM
-    private Long productId;
+    private long productId;
     private String name;
-    private Double price;
-    private Integer stock;
+    private double price;
+    private int stock;
 
-    Product() {} // JPA
+    public Product() { } // JPA
+
+    public Product(String name) {
+        this.name = name;
+        price = 1.0;
+        stock = 0;
+    }
 
     public void addStock(int value) {
         stock += value;
@@ -19,7 +25,7 @@ public class Product {
         stock -= value;
     }
 
-    public Long getId() {
+    public long getId() {
         if(productId > -1) {
             return productId;
         }
@@ -33,14 +39,18 @@ public class Product {
         return "No name";
     }
 
-    public Double getPrice() {
-        if(price > 0){
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public double getPrice() {
+        if(price >= 0){
             return price;
         }
         return 999.99;
     }
 
-    public Integer getStock() {
+    public int getStock() {
         return stock;
     }
 }
