@@ -75,6 +75,7 @@ public class ProductRepository {
         try {
             Product p = em.find(Product.class, Long.parseLong(id));
             em.remove(p);
+            em.getTransaction().commit();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             em.getTransaction().rollback();

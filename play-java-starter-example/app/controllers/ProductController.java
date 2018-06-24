@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.mvc.*;
 import play.libs.Json;
 import models.*;
+
 import java.util.List;
 
 /**
@@ -47,11 +48,16 @@ public class ProductController extends Controller {
         return ok(Json.toJson(Kapstok.putProduct(id, name)));
     }
 
-    public Result deleteProduct(String prodctId) {
-        String jwtString = request().body().asJson().toString();
-        if(Kapstok.verifyToken(jwtString)) {
-            return ok(Json.toJson(Kapstok.deleteProduct(prodctId)));
+    public Result deleteProduct(String productId) {
+        String jwtString = request().getHeader("Authorization");
+        String[] splitted = jwtString.split(" ");
+        try {
+            if (Kapstok.verifyToken(splitted[1])) {
+                return ok(Json.toJson(Kapstok.deleteProduct(productId)));
+            }
+            return unauthorized("You're not authorized to delete a product.");
+        } catch (Exception npEx) {
+            return notAcceptable();
         }
-        return unauthorized("You're not authorized to delete a product.");
     }
 }

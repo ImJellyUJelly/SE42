@@ -17,7 +17,11 @@ public class Kapstok {
     }
 
     public static boolean verifyToken(String token) {
-        return jwt.verifyToken(token);
+        try {
+            return jwt.verifyToken(token);
+        } catch (Exception npEx) {
+            return false;
+        }
     }
 
     // END JWT STUFF //
